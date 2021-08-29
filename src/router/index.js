@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+import Allowance from '../views/Allowance.vue'
 import Same from '../views/Same.vue'
 import Diff from '../views/Diff.vue'
 
@@ -8,6 +9,11 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/allowance',
+    name: 'Allowance',
+    component: Allowance
   },
   {
     path: '/same',
