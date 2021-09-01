@@ -10,7 +10,6 @@
    <td><textarea v-model="addressList" placeholder="Please enter one address in each line" rows="10" cols="100"></textarea></td></tr>
    </table>
    <div style="margin: auto; width: 40%"><br/>
-   <button @click="deploy" style="font-size: 24px; width: 300px">Deploy</button>
    <button @click="submit" style="font-size: 24px; width: 300px">Send</button></div>
   </div>
 </template>
