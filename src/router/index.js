@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Allowance from '../views/Allowance.vue'
 import Same from '../views/Same.vue'
-import Diff from '../views/Diff.vue'
+//import Diff from '../views/Diff.vue'
 
 const routes = [
   {
@@ -19,11 +19,11 @@ const routes = [
     path: '/same',
     name: 'Same',
     component: Same
-  },
-  {
-    path: '/diff',
-    name: 'Diff',
-    component: Diff
+  //},
+  //{
+  //  path: '/diff',
+  //  name: 'Diff',
+  //  component: Diff
   }
 ]
 
