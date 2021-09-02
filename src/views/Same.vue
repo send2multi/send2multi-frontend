@@ -101,23 +101,24 @@ export default {
 	  alert("Cannot send zero coins!")
 	  return
 	}
-	const neededAmt = this.amount * addrList.length
+	const totalAmt = this.amount * addrList.length
 	if(balance < this.amount * addrList.length) {
 	  alert("You do not own enough "+symbol+" to send! "
-	    + balance + " < " + neededAmt)
+	    + balance + " < " + totalAmt)
 	  return
 	}
-	if(allowance < neededAmt) {
+	if(allowance < totalAmt) {
 	  alert("You have not approved enough "+symbol+" to the send2multi contract! "
-	    + allowance + " < " + neededAmt)
+	    + allowance + " < " + totalAmt)
 	  return
 	}
-	const okToSend = confirm("Are you sure to send "+neededAmt+" "+symbol+" to the addresses?")
+	const okToSend = confirm("Are you sure to send "+this.amount+" "+symbol+" to the addresses (totally "+totalAmt+")?")
 	if(!okToSend) {
 	  return
 	}
-        const sendAmt = ethers.utils.parseUnits(neededAmt.toString(), decimals)
-        await s2mContract.connect(signer).sendWithSameValue(this.sep20Address, sendAmt, addrList)
+        const sendAmt = ethers.utils.parseUnits(this.amount.toString(), decimals)
+        const gasPrice = await provider.getStorageAt("0x0000000000000000000000000000000000002710","0x00000000000000000000000000000000000000000000000000000000000000002")
+        await s2mContract.connect(signer).sendWithSameValue(this.sep20Address, sendAmt, addrList, {gasPrice: gasPrice})
       } catch(e) {
         alert("Error! "+e)
       }

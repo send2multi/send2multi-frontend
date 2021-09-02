@@ -71,7 +71,8 @@ export default {
         const decimals = await sep20Contract.decimals()
         this.allowance = this.newAllowance
         var amount = ethers.utils.parseUnits(this.newAllowance.toString(), decimals)
-        await sep20Contract.connect(signer).approve(SEND2MULTIADDR, amount)
+        const gasPrice = await provider.getStorageAt("0x0000000000000000000000000000000000002710","0x00000000000000000000000000000000000000000000000000000000000000002")
+        await sep20Contract.connect(signer).approve(SEND2MULTIADDR, amount, {gasPrice: gasPrice})
       } catch (e) {
         alert("Error! "+e)
       }
@@ -85,6 +86,6 @@ export default {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const signer = provider.getSigner()
     this.address = await signer.getAddress()
-  },
+  }
 }
 </script>
