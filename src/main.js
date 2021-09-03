@@ -2,9 +2,6 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import './index.css'
-import { ethers } from "./ethers-5.4.6.esm.min.js"
-
-window.ethers = ethers
 
 window.alertNoWallet = () => {
       alert("No wallet installed! Please install MetaMask or other web3 wallet to use this App.");
@@ -32,7 +29,7 @@ window.SEND2MULTIADDR = "0x2a92d87Efd84bF7D264D166224B8d757F2E8a9D5"
 if (typeof window.ethereum === 'undefined') {
   alertNoWallet()
 } else {
-  window.ethereum.enable()
+  ethereum.request({ method: 'eth_requestAccounts' })
 }
 
 createApp(App).use(router).mount('#app')

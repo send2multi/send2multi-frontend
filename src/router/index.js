@@ -16,7 +16,7 @@ const routes = [
     component: Allowance
   },
   {
-    path: '/same',
+    path: '/send',
     name: 'Same',
     component: Same
   //},
