@@ -42,7 +42,7 @@ function getAddrList(text) {
     try {
       addrList.push(ethers.utils.getAddress(line))
     } catch(e) {
-      alert("Failed to parse "+line+" Error "+e)
+      alert("Failed to parse "+line+" Error "+e.toString())
     }
   }
   return addrList
@@ -97,7 +97,7 @@ export default {
         const receipt = await contract.deployTransaction.wait();
 	console.log(receipt)
       } catch(e) {
-        alert("Error! "+e)
+        alert("Error! "+e.toString())
       }
     },
     async submit() {
@@ -118,6 +118,10 @@ export default {
         const balance = ethers.utils.formatUnits(balanceAmt, decimals)
 	const addrList = getAddrList(this.addressList)
 	if(addrList.length == 0) {
+	  return
+	}
+	if(addrList.length > 500) {
+	  alert("There are more than 500 addresses to send! Transaction may fail. Please reduce the count.")
 	  return
 	}
 	if(this.amount == 0) {
@@ -143,8 +147,22 @@ export default {
         const gasPrice = await provider.getStorageAt("0x0000000000000000000000000000000000002710","0x00000000000000000000000000000000000000000000000000000000000000002")
         await s2mContract.connect(signer).sendWithSameValue(this.sep20Address, sendAmt, addrList, {gasPrice: gasPrice})
       } catch(e) {
-        alert("Error! "+e)
+        alert("Error! "+e.toString())
       }
+    }
+  },
+  async mounted() {
+    if (typeof window.ethereum === 'undefined') {
+      alertNoWallet()
+      return
+    }
+    if (this.$route.params.sep20Address && this.$route.params.sep20Address.length != 0) {
+       try {
+         const addr = ethers.utils.getAddress(this.$route.params.sep20Address)
+	 this.sep20Address = this.$route.params.sep20Address
+       } catch(e) {
+         alert(this.$route.params.sep20Address+" is not a valid address! "+e.toString())
+       }
     }
   }
 }

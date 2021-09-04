@@ -55,7 +55,7 @@ export default {
         this.allowance = ethers.utils.formatUnits(amount, decimals)
         this.shown = true
       } catch (e) {
-        alert("Error! "+e)
+        alert("Error! "+e.toString())
       }
     },
     async approve() {
@@ -74,7 +74,7 @@ export default {
         const gasPrice = await provider.getStorageAt("0x0000000000000000000000000000000000002710","0x00000000000000000000000000000000000000000000000000000000000000002")
         await sep20Contract.connect(signer).approve(SEND2MULTIADDR, amount, {gasPrice: gasPrice})
       } catch (e) {
-        alert("Error! "+e)
+        alert("Error! "+e.toString())
       }
     }
   },
@@ -82,6 +82,14 @@ export default {
     if (typeof window.ethereum === 'undefined') {
       alertNoWallet()
       return
+    }
+    if (this.$route.params.sep20Address && this.$route.params.sep20Address.length != 0) {
+       try {
+         const addr = ethers.utils.getAddress(this.$route.params.sep20Address)
+	 this.sep20Address = this.$route.params.sep20Address
+       } catch(e) {
+         alert(this.$route.params.sep20Address+" is not a valid address! "+e.toString())
+       }
     }
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const signer = provider.getSigner()

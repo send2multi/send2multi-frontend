@@ -7,17 +7,22 @@ import Same from '../views/Same.vue'
 const routes = [
   {
     path: '/',
-    name: 'Home',
     component: Home
   },
   {
-    path: '/allowance',
-    name: 'Allowance',
+    path: '/approve',
+    component: Allowance
+  },
+  {
+    path: '/approve/:sep20Address',
     component: Allowance
   },
   {
     path: '/send',
-    name: 'Same',
+    component: Same
+  },
+  {
+    path: '/send/:sep20Address',
     component: Same
   //},
   //{
