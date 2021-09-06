@@ -24,7 +24,7 @@ window.SEND2MULTIABI = [
     "function sendWithSameValue(address coinType, uint amount, address[] calldata receiverList)",
     "function sendWithDifferentValues(address coinType, uint[] calldata receiverAndAmountList)"]
 
-window.SEND2MULTIADDR = "0x2a92d87Efd84bF7D264D166224B8d757F2E8a9D5"
+window.SEND2MULTIADDR = "0xE221d4200F909e04c13AAb84fe3B7917f8D06cEE"
 
 if (typeof window.ethereum === 'undefined') {
   alertNoWallet()
