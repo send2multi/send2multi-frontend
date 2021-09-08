@@ -130,10 +130,6 @@ export default {
 	if(addrList.length == 0) {
 	  return
 	}
-	if(addrList.length > 500) {
-	  alert("There are more than 500 addresses to send! Transaction may fail. Please reduce the count.")
-	  return
-	}
 	//if(this.amount == 0) {
 	//  alert("Cannot send zero coins!")
 	//  return
@@ -154,11 +150,17 @@ export default {
 	  return
 	}
         const sendAmt = ethers.utils.parseUnits(this.amount.toString(), decimals)
+	const connectedContract = s2mContract.connect(signer)
+        const gas = await connectedContract.estimateGas.sendWithSameValue(this.sep20Address, sendAmt, addrList)
+	if(gas > 9000000) {
+	  alert("The gas consumption is too high! Transaction may fail. Please reduce the address count.")
+	  return
+	}
         var gasPrice = await provider.getStorageAt("0x0000000000000000000000000000000000002710","0x00000000000000000000000000000000000000000000000000000000000000002")
 	if(gasPrice == "0x") {
 	  gasPrice = "0x0"
 	}
-        await s2mContract.connect(signer).sendWithSameValue(this.sep20Address, sendAmt, addrList, {gasPrice: gasPrice})
+        await connectedContract.sendWithSameValue(this.sep20Address, sendAmt, addrList, {gasPrice: gasPrice})
       } catch(e) {
         alert("Error! "+e.toString())
 	console.log(e)
