@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Allowance from '../views/Allowance.vue'
 import Same from '../views/Same.vue'
-//import Diff from '../views/Diff.vue'
+import Holders from '../views/Holders.vue'
 
 const routes = [
   {
@@ -12,6 +12,10 @@ const routes = [
   {
     path: '/approve',
     component: Allowance
+  },
+  {
+    path: '/holders',
+    component: Holders
   },
   {
     path: '/approve/:sep20Address',
