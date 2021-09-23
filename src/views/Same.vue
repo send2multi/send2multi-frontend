@@ -152,7 +152,7 @@ export default {
         const sendAmt = ethers.utils.parseUnits(this.amount.toString(), decimals)
 	const connectedContract = s2mContract.connect(signer)
         const gas = await connectedContract.estimateGas.sendWithSameValue(this.sep20Address, sendAmt, addrList)
-	if(gas > 9000000) {
+	if(gas > 7000000) {
 	  alert("The gas consumption is too high! Transaction may fail. Please reduce the address count.")
 	  return
 	}
